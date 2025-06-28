@@ -33,6 +33,24 @@ def start_test_env(nombre_entorno, lista_variables):
         print("Error: 'docker compose' no se encuentra.")
 
 
+def stop_test_env(nombre_entorno):
+    print(f"Deteniendo entorno de prueba: {nombre_entorno}")
+
+    comando = [
+        'docker', 'compose',
+        '--project-name', nombre_entorno,
+        'down'
+    ]
+
+    try:
+        subprocess.run(comando, check=True)
+        print(f"Entorno '{nombre_entorno}' detenido y eliminado.")
+    except subprocess.CalledProcessError as error:
+        print(f"Error al detener el entorno: {error}")
+    except FileNotFoundError:
+        print("Error: 'docker compose' no se encuentra.")
+
+
 def main():
     argumentos = sys.argv[1:]
 
@@ -45,6 +63,9 @@ def main():
         nombre_entorno = argumentos[1]
         lista_variables = argumentos[2:]
         start_test_env(nombre_entorno, lista_variables)
+    elif comando == "stop_test_env" and len(argumentos) == 2:
+        nombre_entorno = argumentos[1]
+        stop_test_env(nombre_entorno)
 
 
 if __name__ == '__main__':
