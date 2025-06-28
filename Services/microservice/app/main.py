@@ -6,6 +6,7 @@ app = FastAPI()
 
 MOCK_URL = os.getenv("MOCK_URL", "http://localhost:5001/mock-response")
 
+
 @app.get("/data")
 def get_data():
     try:
