@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")/../.." || exit 1
+
+errores=0 
+
+echo "*********************"
+echo "Validando sintaxis de docker-compose"
+
+archivo_compose="./docker-compose.yaml"
+echo "Verificando $archivo_compose"
+if docker compose -f "$archivo_compose" config > /dev/null; then
+echo "$archivo_compose valido"
+else
+echo "Error en $archivo_compose"
+errores=1
+fi
+
+
+echo "*********************"
+echo "Resultado Final:"
+if [ $errores -eq 1 ]; then
+  echo "Se encontraron errores. Commit cancelado."
+  exit 1
+else
+  echo "Todo correcto. Procediendo con el commit."
+  exit 0
+fi
