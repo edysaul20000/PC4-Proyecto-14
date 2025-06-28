@@ -16,6 +16,16 @@ echo "Error en $archivo_compose"
 errores=1
 fi
 
+echo "*********************"
+echo "Validando sintaxis de Python con flake8"
+
+if flake8 . --exclude=pc4,__pycache__ --max-line-length=100 --select=E,W,F; then
+  echo "flake8 sin errores"
+else
+  echo "flake8 encontro errores"
+  errores=1
+fi
+
 
 echo "*********************"
 echo "Resultado Final:"
