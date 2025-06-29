@@ -3,7 +3,7 @@ version: '3.8'
 services:
   microservice:
     build:
-      context: ./Services/microservice
+      context: ./services/microservice
     ports:
       - "8000:8000"
     environment:
@@ -13,7 +13,7 @@ services:
 
   mock_service:
     build:
-      context: ./Services/mock
+      context: ./services/mock
     ports:
       - "5001:5001"
     environment:
