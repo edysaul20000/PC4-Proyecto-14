@@ -398,6 +398,7 @@ Para trabajar con el proyecto, realiza los pasos a continuacion.
 - Instalar dependencia
    ```bash
     pip install jsonschema
+    pip install PyYAML
     ```
 
 - Flujo General
