@@ -104,7 +104,7 @@ Desarrollar una herramienta para orquestar servicios con Docker Compose y config
 
 ## Demostracion en video
 
-[Sprint 1 (29/06/2025) Grupo 6 Proyecto 14 ]()
+[Sprint 1 (29/06/2025) Grupo 6 Proyecto 14 ](https://www.youtube.com/watch?v=A_aYCbtDJuc&ab_channel=SerranoArosteguiEdySaul)
 
 ## Distribución
 
@@ -199,40 +199,25 @@ Para trabajar con el proyecto, realiza los pasos a continuacion.
     pip install -r services/microservice/requirements.txt 
     pip install -r  services/mock/requirements.txt 
     ```
+
 4. **Instalar herramientas de analisis**
-    
-    Instalar `shellcheck` para analizar scrips bash
+
+- Instalar flake8 para analizar codigo python
+   
     ```bash
-    sudo apt update && sudo apt install shellcheck
+    pip install flake8
     ```
 
-    Instalar `tflint` para analizar el codigo terraform de la plataforma oficial
-    ```bash
-    curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-    ```
-5. Copiar los `hooks` personalizados a la carpeta `.git/hooks`
+5. Copiar los hooks personalizados a la carpeta .git/hooks
 
     ```bash
-    cp hooks/commit-msg .git/hooks/commit-msg
+    cp services/hooks/pre-commit .git/hooks/pre-commit
     ```
 
+6. Dar permisos de ejecucion a los hooks 
     ```bash
-    cp hooks/pre-push .git/hooks/
+    chmod +x .git/hooks/pre-commit
     ```
-
-6. Dar permisos de ejecucion a los hooks y al script de linting
-    ```bash
-    chmod +x .git/hooks/commit-msg
-    ```
-
-    ```bash
-    chmod +x .git/hooks/pre-push
-    ```
-
-    ```bash
-    chmod +x scripts/lint_all.sh 
-    ```
-
 ## Formas de Ejecutar el Proyecto
 
 ### Opción 1: Usando Docker Compose
