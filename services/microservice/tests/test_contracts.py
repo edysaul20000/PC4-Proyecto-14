@@ -2,7 +2,7 @@ import requests
 import json
 import os
 import pytest
-from jsonschema import validate, ValidationError
+from jsonschema import validate
 import subprocess
 import time
 import uuid
@@ -14,6 +14,7 @@ with open(SCHEMA_PATH) as f:
 
 MICROSERVICE_URL = "http://localhost:8000/data"
 MOCK_URL = "http://localhost:5001/mock-response"
+
 
 @pytest.fixture(scope="function")
 def test_env():
@@ -30,6 +31,7 @@ def test_env():
         stop_command = ["python", "../../../test_env_builder.py", "stop_test_env", env_name]
         subprocess.run(stop_command, check=True, capture_output=True, text=True)
 
+
 def test_mock_contract(test_env):
     """
     El mock debe cumplir con el contrato de respuesta definido en el JSON Schema.
@@ -38,6 +40,7 @@ def test_mock_contract(test_env):
     assert response.status_code == 200
     data = response.json()
     validate(instance=data, schema=RESPONSE_SCHEMA)
+
 
 def test_microservice_contract(test_env):
     """
