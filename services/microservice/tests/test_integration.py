@@ -56,3 +56,17 @@ def test_get_data_with_mock_error(test_env):
     assert response.status_code == 503
     data = response.json()
     assert "Error al comunicarse con el servicio externo" in data["detail"]
+
+
+@pytest.mark.mock_config(MOCK_RESPONSE_TYPE="delay", MOCK_DELAY_SECONDS="3")
+def test_get_data_with_mock_delay(test_env):
+    """
+    Prueba de integración para el escenario de latencia (OCP).
+    Verifica que el microservicio maneja una respuesta lenta del mock.
+    """
+    # El timeout de la petición debe ser mayor que el delay simulado
+    response = requests.get(f"{MICROSERVICE_URL}/data", timeout=10)
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["message"] == "Datos obtenidos exitosamente desde el mock."
