@@ -222,7 +222,7 @@ Permitir la configuración detallada de los mocks y ejecutar pruebas que interac
 - **Frank Hinojosa**: Issues [#18](#18-probar-la-integracion-con-respuesta-de-error-del-mock)
 - **Germain Choquecambi**: [#20](#20-probar-la-integración-con-respuesta-lenta-del-mock)
 
-## Issues del Sprint 1
+## Issues del Sprint 2
 
 ### [#16](https://github.com/edysaul20000/PC4-Proyecto-14/issues/16) Probar la integracion con respuesta exitosa del mock
 - **User story**  
@@ -250,6 +250,76 @@ Permitir la configuración detallada de los mocks y ejecutar pruebas que interac
 - **Responsable**: Germain Choquechambi
 - **Rama**: `feature/latencia-mock`
 - **Objetivo**: Confirmar que el microservicio pueda soportar y procesar respuestas lentas de sus dependencias externas sin fallar ni experimentar timeouts inesperados
+
+## Sprint 3
+
+Realizado del 29 al 30 de junio de 2025, se compone de los siguiente:
+
+### 1. Ramas
+
+- `feature/Orquestacion-prueba`, desarrollado por **Edy Serrano** 
+- `release/sprint3`, desarrollado por **Frank Hinojosa** 
+- `feature/prueba-contrato`, desarrollado por **Germain Choquechambi** 
+
+### 2. Issues
+
+- [#25](#25-implementación-de-pruebas-de-contrato-entre-microservicio-y-mock) Implementación de pruebas de contrato entre microservicio y mock
+- [#26](#26-orquestacion-de-entornos-de-prueba-con-multiples-servicios-y-mocks) Orquestacion de Entornos de Prueba con Multiples Servicios y Mocks
+- [#27](#27-implementar-reportes-de-pruebas-y-flujo-gitops-para-configuración-de-escenarios) Implementar Reportes de Pruebas y Flujo GitOps para Configuración de Escenarios
+
+### 3. Pull Request
+
+- [#28](https://github.com/edysaul20000/PC4-Proyecto-14/pull/28) : merge[#26]: Feature/orquestacion-prueba a develop
+- [#29](https://github.com/edysaul20000/PC4-Proyecto-14/pull/29) : merge[#25]: Feature/prueba-contrato a develop
+
+## **Objetivo:** 
+ Implementar pruebas de contrato para las interacciones con los mocks y simular escenarios de prueba más complejos.
+ 
+ **Enunciado:**
+* Implementa **pruebas de contrato** para la interfaz entre el microservicio y el mock. Estas pruebas deben asegurar que el microservicio y el mock cumplen con una especificación de API acordada (ej. usando `pytest-contract` o validación de JSON Schema para las respuestas).
+    
+* Desarrolla un mecanismo para definir **escenarios de prueba complejos** que involucren múltiples servicios y mocks, y que el constructor de entornos pueda levantar y ejecutar de forma orquestada.
+* Añade la capacidad de generar **reportes de ejecución de pruebas** detallados.
+* Considera la implementación de un **GitOps simulado** para mantener los archivos de configuración de los entornos de prueba sincronizados.
+
+## Demostracion en video
+
+[Sprint 3 (30/06/2025) Grupo 6 Proyecto 14 ](https://www.youtube.com/watch?v=eJllHcq7G-k&ab_channel=SerranoArosteguiEdySaul)
+
+## Distribución
+
+- **Edy Serrano**: Issues [#25](#25-implementación-de-pruebas-de-contrato-entre-microservicio-y-mock)
+- **Frank Hinojosa**: Issues [#27](#27-implementar-reportes-de-pruebas-y-flujo-gitops-para-configuración-de-escenarios)
+- **Germain Choquecambi**: [#26](#26-orquestacion-de-entornos-de-prueba-con-multiples-servicios-y-mocks)
+
+## Issues del Sprint 3
+
+### [#25](https://github.com/edysaul20000/PC4-Proyecto-14/issues/25) Implementación de pruebas de contrato entre microservicio y mock
+- **User story**  
+    **As a** developer  
+    **I need** implementar pruebas de contrato para la interfaz entre el microservicio y el mock  
+    **So that** pueda asegurar que ambos servicios cumplen con una especificacion de API acordada y evitar errores de integracion  
+- **Responsable**: Germain Choquechambi
+- **Rama**: `feature/prueba-contrato`
+- **Objetivo**: Asegurar que ambos servicios cumplen con una especificacion de API acordada y evitar errores de integracion 
+
+### [#26](https://github.com/edysaul20000/PC4-Proyecto-14/issues/26) Orquestacion de Entornos de Prueba con Multiples Servicios y Mocks
+- **User story**  
+    **As a** developer  
+    **I need** desarrollar un mecanismo para definir escenarios de prueba que involucren multiples servicios y mocks, y que el constructor de entornos pueda levantarlos y ejecutarlos de forma orquestada
+    **So that** pueda simular y validar situaciones reales de integracion entre varios microservicios y dependencias.
+- **Responsable**: Edy Serrano
+- **Rama**: `feature/Orquestacion-prueba`
+- **Objetivo**: Validar situaciones reales de integracion entre varios microservicios y dependencias
+
+### [#27](https://github.com/edysaul20000/PC4-Proyecto-14/issues/27) Implementar Reportes de Pruebas y Flujo GitOps para Configuración de Escenarios
+- **User story**  
+    **As a** desarrollador  
+    **I need** añadir la capacidad de generar reportes de ejecución de pruebas detallados y mantener los archivos de configuración de los entornos de prueba sincronizados mediante un flujo GitOps simulado  
+    **So that** pueda revisar fácilmente los resultados de las pruebas, compartir evidencia con el equipo y asegurar que todos trabajamos con los mismos escenarios validados  
+- **Responsable**: Frank Hinojosa
+- **Rama**: `feature/latencia-mock`
+- **Objetivo**: Revisar facilmente los resultados de las pruebas, compartir evidencia con el equipo y asegurar que todos trabajamos con los mismos escenarios validados
 
 ## Configuración Inicial
 
@@ -323,6 +393,57 @@ Para trabajar con el proyecto, realiza los pasos a continuacion.
     pytest
     ```
 
+8. Automatizacion de Entornos de Prueba con `test_env_builder.py`
+
+- Instalar dependencia
+   ```bash
+    pip install jsonschema
+    pip install PyYAML
+    ```
+
+- Flujo General
+
+    ```bash
+    python test_env_builder.py start_test_env <nombre_entorno> --scenario <ruta_yaml>
+    # ...ejecuta tus pruebas...
+    python test_env_builder.py stop_test_env <nombre_entorno>
+    ```
+- Escenario de Exito
+
+    ```bash
+    python test_env_builder.py start_test_env demo-success --scenario scenarios/success_simple.yaml
+    # ...ejecuta tus pruebas...
+    python test_env_builder.py stop_test_env demo-success
+    ```
+
+- Escenario con Mock que Responde con Error
+
+    ```bash
+    python test_env_builder.py start_test_env demo-error --scenario scenarios/error_mock.yaml
+    # ...ejecuta tus pruebas...
+    python test_env_builder.py stop_test_env demo-error
+    ```
+---
+
+- Escenario con Latencia Simulada
+
+    ```bash
+    python test_env_builder.py start_test_env demo-delay --scenario scenarios/success_with_delay.yaml
+    # ...ejecuta tus pruebas...
+    python test_env_builder.py stop_test_env demo-delay
+    ```
+
+9. Generacion de Reportes
+
+- Instalar dependencias
+    ```bash
+    pip install pytest-html
+    ```
+- Generacion de reporte
+    ```bash
+    pytest --html=report.html --self-contained-html
+    ```
+---
 
 ## Formas de Ejecutar el Proyecto
 
