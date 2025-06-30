@@ -13,13 +13,13 @@ def mock_response():
     if response_type == "error":
         return JSONResponse(
             status_code=500,
-            content={"error": "Simulated error response"}
+            content={"error": "ERROR: Respuesta de error simulada"}
         )
     else:
         return {
             "user_id": 123,
             "status": "active",
-            "message": "Simulated success response"
+            "message": "Respuesta de exito simulada",
         }
 
 
