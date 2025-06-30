@@ -178,6 +178,79 @@ Desarrollar una herramienta para orquestar servicios con Docker Compose y config
 - **Rama**: `feature/test-env-builder`
 - **Objetivo**: Desarrollar una herramienta CLI (test_env_builder.py) que permita iniciar (start_test_env) y detener (stop_test_env) entornos de prueba orquestados con Docker Compose.
 
+## Sprint 2
+
+Realizado del 28 al 29 de junio de 2025, se compone de los siguiente:
+
+### 1. Ramas
+
+- `feature/answer-mock`, desarrollado por **Edy Serrano** 
+- `feature/error-mock`, desarrollado por **Frank Hinojosa** 
+- `feature/latencia-mock`, desarrollado por **Germain Choquechambi** 
+
+### 2. Issues
+
+- [#16](#16-probar-la-integracion-con-respuesta-exitosa-del-mock) Probar la integracion con respuesta exitosa del mock
+- [#18](#18-probar-la-integracion-con-respuesta-de-error-del-mock) Probar la integracion con respuesta de error del mock
+- [#20](#20-probar-la-integración-con-respuesta-lenta-del-mock) Probar la integración con respuesta lenta del mock
+
+### 3. Pull Request
+
+- [#19](https://github.com/edysaul20000/PC4-Proyecto-14/pull/19) : merge[#16]: Feature/answer-mock a develop
+- [#21](https://github.com/edysaul20000/PC4-Proyecto-14/pull/21) : merge[#18]: Feature/error-mock a develop
+- [#22](https://github.com/edysaul20000/PC4-Proyecto-14/pull/22) : merge[#20]: feature/latencia-mock a develop
+
+## **Objetivo:** 
+Permitir la configuración detallada de los mocks y ejecutar pruebas que interactúen con ellos.
+
+**Enunciado:**
+* Mejora el mock/simulador de la dependencia externa para que su comportamiento pueda ser **configurado dinámicamente** (ej. a través de un archivo JSON, variables de entorno, o una API en el propio mock). Esto permitirá simular diferentes escenarios (respuestas exitosas, errores, latencia).
+* Extiende la CLI para que pueda pasar configuraciones detalladas a los mocks al iniciar el entorno.
+* Desarrolla **pruebas de integración** con `pytest` para el microservicio de ejemplo, que:
+    * Utilicen la CLI para levantar el entorno de prueba.
+    * Configuren el mock para un escenario específico.
+    * Ejecuten llamadas al microservicio y verifiquen que interactúa correctamente con el mock configurado.
+* Aplica **principios SOLID aplicados a tests** al diseñar las pruebas, enfocándose en el aislamiento y la independencia.
+
+## Demostracion en video
+
+[Sprint 2 (30/06/2025) Grupo 6 Proyecto 14 ](https://www.youtube.com/watch?v=VM09BMjrsps&ab_channel=SerranoArosteguiEdySaul)
+
+## Distribución
+
+- **Edy Serrano**: Issues [#16](#16-probar-la-integracion-con-respuesta-exitosa-del-mock)
+- **Frank Hinojosa**: Issues [#18](#18-probar-la-integracion-con-respuesta-de-error-del-mock)
+- **Germain Choquecambi**: [#20](#20-probar-la-integración-con-respuesta-lenta-del-mock)
+
+## Issues del Sprint 1
+
+### [#16](https://github.com/edysaul20000/PC4-Proyecto-14/issues/16) Probar la integracion con respuesta exitosa del mock
+- **User story**  
+    **As a** desarrollador  
+    **I need** verificar que el microservicio procesa correctamente una respuesta exitosa de la dependencia externa simulada (mock)  
+    **So that** pueda asegurar que el flujo principal de la aplicacion funciona como se espera.
+- **Responsable**: Edy Serrano
+- **Rama**: `feature/answer-mock`
+- **Objetivo**: Validar que el microservicio pueda manejar de forma correcta una respuesta exitosa de una dependencia externa simulada.
+
+### [#18](https://github.com/edysaul20000/PC4-Proyecto-14/issues/18) Probar la integracion con respuesta de error del mock
+- **User story**  
+    **As a** desarrollador  
+    **I need** verificar que el microservicio maneja de forma controlada una respuesta de error de la dependencia externa simulada (mock)  
+    **So that** pueda garantizar que el servicio es resiliente y comunica los fallos de sus dependencias de manera adecuada
+- **Responsable**: Frank Hinojosa
+- **Rama**: `feature/error-mock`
+- **Objetivo**: Asegurar que el microservicio pueda manejar correctamente los errores de sus dependencias externas, respondiendo de forma controlada y comunicando los fallos adecuadamente
+
+### [#20](https://github.com/edysaul20000/PC4-Proyecto-14/issues/20) Probar la integración con respuesta lenta del mock
+- **User story**  
+    **As a** desarrollador  
+    **I need** verificar que el microservicio puede manejar una respuesta con latencia de la dependencia externa simulada (mock) sin fallar  
+    **So that** pueda asegurar que el servicio es robusto y no sufre de timeouts prematuros ante dependencias lentas.
+- **Responsable**: Germain Choquechambi
+- **Rama**: `feature/latencia-mock`
+- **Objetivo**: Confirmar que el microservicio pueda soportar y procesar respuestas lentas de sus dependencias externas sin fallar ni experimentar timeouts inesperados
+
 ## Configuración Inicial
 
 Para trabajar con el proyecto, realiza los pasos a continuacion.
@@ -218,6 +291,39 @@ Para trabajar con el proyecto, realiza los pasos a continuacion.
     ```bash
     chmod +x .git/hooks/pre-commit
     ```
+
+7. Ejecutar los tests de integracion
+
+- Instalar pytest
+    ```bash
+    pip install pytest
+    ```
+- Movernos a la carpeta tests
+    ```bash
+    cd services/microservice/tests/
+    ```
+
+- Ejecutar el test_get_data_success
+    ```bash
+    pytest test_integration.py::test_get_data_success -v -s
+    ```
+
+- Ejecutar el test_get_data_with_mock_error
+    ```bash
+    pytest test_integration.py::test_get_data_with_mock_error -v -s
+    ```
+
+- Ejecutar el test_get_data_with_mock_delay
+    ```bash
+    pytest test_integration.py::test_get_data_with_mock_delay -v -s
+    ```
+
+- Ejecutar todo los tests
+    ```bash
+    pytest
+    ```
+
+
 ## Formas de Ejecutar el Proyecto
 
 ### Opción 1: Usando Docker Compose
