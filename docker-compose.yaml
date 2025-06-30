@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  microservice:
+    build:
+      context: ./services/microservice
+    ports:
+      - "8000:8000"
+    environment:
+      - MOCK_URL=${MOCK_URL:-http://mock_service:5001/mock-response}
+    depends_on:
+      - mock_service
+
+  mock_service:
+    build:
+      context: ./services/mock
+    ports:
+      - "5001:5001"
+    environment:
+      - MOCK_RESPONSE_TYPE=${MOCK_RESPONSE_TYPE:-success}
