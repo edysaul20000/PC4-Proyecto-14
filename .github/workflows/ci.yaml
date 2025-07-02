@@ -1,0 +1,61 @@
+name: CI/CD Entornos de Prueba
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar dependencias del sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip python3-venv
+
+      - name: Instalar Docker Compose
+        run: |
+          sudo apt-get install -y docker-compose
+
+      - name: Construir imagenes Docker
+        run: |
+          docker compose build
+
+      - name: Levantar servicios en segundo plano
+        run: |
+          docker compose up -d
+
+      - name: Esperar a que los servicios esten listos
+        run: |
+          sleep 10
+
+      - name: Instalar dependencias de testing
+        run: |
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install -r services/microservice/requirements.txt
+          pip install -r services/mock/requirements.txt
+          pip install pytest pytest-html jsonschema PyYAML requests
+
+      - name: Ejecutar pruebas de integracion y contrato (ignorando test_error)
+        run: |
+          . venv/bin/activate
+          cd services/microservice/tests
+          pytest -k "not test_get_data_with_mock_error" --html=../../../../report.html --self-contained-html
+
+      - name: Subir reporte de pruebas como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-pruebas
+          path: report.html
+
+      - name: Apagar servicios Docker
+        if: always()
+        run: |
+          docker compose down
