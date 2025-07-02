@@ -1,0 +1,8 @@
+{
+  "status": "active",
+  "data": {
+    "id": 123,
+    "name": "Dato de prueba exitoso",
+    "value": "Este dato simula una respuesta exitosa desde un archivo JSON."
+  }
+}
