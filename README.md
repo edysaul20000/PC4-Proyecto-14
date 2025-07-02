@@ -428,9 +428,9 @@ Para trabajar con el proyecto, realiza los pasos a continuacion.
 - Escenario con Latencia Simulada
 
     ```bash
-    python test_env_builder.py start_test_env demo-delay --scenario scenarios/success_with_delay.yaml
+    python test_env_builder.py start_test_env demo-latency --scenario scenarios/success_with_delay.yaml
     # ...ejecuta tus pruebas...
-    python test_env_builder.py stop_test_env demo-delay
+    python test_env_builder.py stop_test_env demo-latency
     ```
 
 9. Generacion de Reportes
@@ -452,16 +452,23 @@ Para trabajar con el proyecto, realiza los pasos a continuacion.
 **Iniciar entorno con CLI:**
 ```bash
 # Entorno exitoso
-python3 test_env_builder.py start_test_env demo-success MOCK_RESPONSE_TYPE=success
+python3 test_env_builder.py start_test_env demo-success MOCK_RESPONSE_TYPE=success MOCK_DATA_FILE=success.json
 
 # Detener entorno exitoso
 python3 test_env_builder.py stop_test_env demo-success
 
 # Entorno con errores
-python3 test_env_builder.py start_test_env demo-error MOCK_RESPONSE_TYPE=error
+python3 test_env_builder.py start_test_env demo-error MOCK_RESPONSE_TYPE=error MOCK_DATA_FILE=error.json
 
 # Detener entorno con errores
 python3 test_env_builder.py stop_test_env demo-error
+
+# Entorno con latencia
+python3 test_env_builder.py start_test_env demo-latency MOCK_RESPONSE_TYPE=latency MOCK_DATA_FILE=latency.json
+
+# Detener entorno con errores
+python3 test_env_builder.py stop_test_env demo-latency
+
 ```
 
 **O directamente con Docker Compose:**
@@ -481,7 +488,10 @@ docker compose down
 MOCK_RESPONSE_TYPE=success uvicorn services.mock.mock_app.mock:app --host 0.0.0.0 --port 5001 --reload
 
 # Respuesta de error
-MOCK_RESPONSE_TYPE=error uvicorn services.mock.mock_app.mock:app --host 0.0.0.0 --port 5001 --reload
+MOCK_RESPONSE_TYPE=error MOCK_DATA_FILE=error.json uvicorn services.mock.mock_app.mock:app --host 0.0.0.0 --port 5001 --reload
+
+# Respuesta de latency
+MOCK_RESPONSE_TYPE=latency MOCK_DATA_FILE=latency.json uvicorn services.mock.mock_app.mock:app --host 0.0.0.0 --port 5001 --reload
 ```
 
 **Terminal 2 - Microservicio:**
