@@ -1,8 +1,9 @@
 {
   "status": "active",
+  "message": "Este dato simula una respuesta exitosa desde un archivo JSON.",
+  "user_id": 123, 
   "data": {
     "id": 123,
-    "name": "Dato de prueba exitoso",
-    "value": "Este dato simula una respuesta exitosa desde un archivo JSON."
+    "name": "Dato de prueba exitoso"
   }
 }
