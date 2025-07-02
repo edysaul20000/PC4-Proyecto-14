@@ -9,10 +9,11 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./mock_app .
+COPY ./mock_app/ ./mock_app
+COPY ./datasets/ ./datasets
 
 # Exponer el puerto
 EXPOSE 5001
 
 # Este comando inicia el servidor FastAPI
-CMD ["uvicorn", "mock:app", "--host", "0.0.0.0", "--port", "5001"]
+CMD ["uvicorn", "mock_app.mock:app", "--host", "0.0.0.0", "--port", "5001"]

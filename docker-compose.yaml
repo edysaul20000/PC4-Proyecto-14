@@ -18,3 +18,4 @@ services:
       - "5001:5001"
     environment:
       - MOCK_RESPONSE_TYPE=${MOCK_RESPONSE_TYPE:-success}
+      - MOCK_DATA_FILE=${MOCK_DATA_FILE:-success.json}
