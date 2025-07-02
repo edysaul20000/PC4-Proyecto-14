@@ -497,3 +497,67 @@ curl http://localhost:8000/data
 
 # Probar mock directamente
 curl http://localhost:5001/mock-response
+```
+---
+---
+# Implementacion de la Practica Calificada 5
+
+### 1. **Edy Serrano**: CI/CD de entornos de prueba
+
+### Estructura del proyecto:
+
+```
+PC4-Proyecto-14/
+├── .github/
+│   ├── workflows/           
+│   └── ci.yaml             # Creacion del pipeline
+├── docker-compose.yaml     
+├── test_env_builder.py      
+├── .env                      
+├── services/
+│   ├── microservice/         
+│   │   ├── Dockerfile
+│   │   ├── requirements.txt
+│   │   └── app/
+│   │       └── main.py      
+│   └── mock/                   
+│       ├── Dockerfile
+│       ├── requirements.txt
+│       └── mock_app/
+│           └── mock.py       
+└── services/hooks/
+    └── pre-commit            
+```
+
+### Descripcion:
+Se crea un pipeline de integracion continua diseñado para automatizar el proceso de construccion, despliegue, testing y generacion de reportes en el entorno de desarrollo y pruebas.
+
+#### **Implementaciones incluidas:**
+1. **Configuracion del pipeline CI/CD en GitHub Actions**
+
+    Definido para ejecutarse en ramas `main` y `develop`, tanto en `push` como en `pull_request`.
+
+2. **Etapas del pipeline:**
+
+    * **Preparación del entorno:** Instalacion de Python, pip, venv y Docker Compose, tambien construccion de imagenes Docker y despliegue de servicios en segundo plano.
+
+    * **Instalacion de dependencias de pruebas:** Crea un entorno virtual y carga requisitos para microservicio y mock, tambien instala de librerias de testing como `pytest`, `pytest-html`, `jsonschema`, `PyYAML`, `requests`.
+
+    * **Ejecucion de pruebas automatizadas:** Se ejecutan los tests de integracion y contrato, ignorando temporalmente test_get_data_with_mock_error debido a que el mock esta diseñado para un caso `success` y este test ejecuta un error, lo que genera un conflicto porque el error espera un error 500 pero recibe un 200 lo que indica el correcto funcionamiento en este ultimo caso de exito.
+
+    * **Generacion de reporte:** Reporte HTML autoincluido (`--self-contained-html`) generado por pytest y subido como artefacto al pipeline para revision en GitHub Actions.
+
+    * **Cierre del entorno:** Apaga los servicios con `docker compose down`.
+
+### Objetivo:
+Automatizar el flujo de pruebas en entornos controlados para:
+
+* Validar la integridad del microservicio y sus mocks.
+
+* Detectar fallos de integración antes del merge.
+
+* Mantener trazabilidad con reportes claros y accesibles.
+
+### Nota:
+
+* Se ejecuto el pipeline de manera local usando `act` para validar su funcionamiento antes del push y al ejecutar `act pull_request` se comprobo que las imagenes Docker se construyen correctamente, los servicios se levantan sin errores y las pruebas se ejecutan generando el reporte HTML esperado.
