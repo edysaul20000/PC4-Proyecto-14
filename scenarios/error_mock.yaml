@@ -7,3 +7,4 @@ services:
   mock_service:
     env:
       MOCK_RESPONSE_TYPE: "error"
+      MOCK_DATA_FILE: "error.json"
