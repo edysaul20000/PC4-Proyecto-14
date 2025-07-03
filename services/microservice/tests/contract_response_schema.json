@@ -6,5 +6,5 @@
     "status": {"type": "string"},
     "message": {"type": "string"}
   },
-  "required": ["user_id", "status", "message"]
+  "required": ["status", "message"]
 }

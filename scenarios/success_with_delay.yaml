@@ -6,5 +6,6 @@ services:
       MOCK_URL: "http://mock_service:5001/mock-response"
   mock_service:
     env:
-      MOCK_RESPONSE_TYPE: "delay"
+      MOCK_RESPONSE_TYPE: "latency"
+      MOCK_DATA_FILE: "latency.json"
       MOCK_DELAY_SECONDS: "3"

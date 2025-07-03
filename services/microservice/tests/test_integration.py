@@ -33,7 +33,7 @@ def test_env(request):
         subprocess.run(stop_command, check=True, capture_output=True, text=True)
 
 
-@pytest.mark.mock_config(MOCK_RESPONSE_TYPE="success")
+@pytest.mark.mock_config(MOCK_RESPONSE_TYPE="success", MOCK_DATA_FILE="success.json")
 def test_get_data_success(test_env):
     """
     Prueba de integracion para el escenario de exito.
@@ -46,7 +46,7 @@ def test_get_data_success(test_env):
     assert data["mock_response"]["status"] == "active"
 
 
-@pytest.mark.mock_config(MOCK_RESPONSE_TYPE="error")
+@pytest.mark.mock_config(MOCK_RESPONSE_TYPE="error", MOCK_DATA_FILE="error.json")
 def test_get_data_with_mock_error(test_env):
     """
     Prueba de integración para el escenario de error.
@@ -58,7 +58,7 @@ def test_get_data_with_mock_error(test_env):
     assert "Error al comunicarse con el servicio externo" in data["detail"]
 
 
-@pytest.mark.mock_config(MOCK_RESPONSE_TYPE="delay", MOCK_DELAY_SECONDS="3")
+@pytest.mark.mock_config(MOCK_RESPONSE_TYPE="latency", MOCK_DATA_FILE="latency.json")
 def test_get_data_with_mock_delay(test_env):
     """
     Prueba de integración para el escenario de latencia (OCP).
