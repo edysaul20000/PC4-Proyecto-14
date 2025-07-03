@@ -643,5 +643,5 @@ El script esta disenado para funcionar tanto de forma local como en entornos de 
 
 # video PC5
 
- [video]( https://www.youtube.com/watch?v=OPgOIiTqpqc)
- [video](https://youtu.be/4tgorFqHA3g)
+- **Edy Serrano:** [Link video]( https://www.youtube.com/watch?v=OPgOIiTqpqc)
+- **FranK Hinojoza y Germain Choquechambi:** [Link video](https://youtu.be/4tgorFqHA3g)
