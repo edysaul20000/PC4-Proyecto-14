@@ -599,3 +599,49 @@ En esta parte me centre en asegurar la fiabilidad de la comunicacion entre un mi
 ## Resultados:
 
 Gracias a estas implementaciones, **todos los tests de integracion y contrato pasan exitosamente**. Validando la funcionalidad del sistema y, crucialmente, la efectividad de nuestra estrategia de Test Data Management y la fiabilidad del ciclo de vida del entorno de pruebas.
+
+
+**Implementacion de la Practica Calificada 5**
+
+1. **Choquechambi Quispe Germain Ronald**
+
+
+## **Monitoreo** de tests y reportes centralizados
+
+Este script en Python automatiza la ejecucion de pruebas con `pytest`, genera reportes HTML, guarda logs, almacena metricas en formato JSON y muestra el historial de las ultimas ejecuciones. Esta disenado para integrarse facilmente en pipelines de CI/CD o ejecutarse localmente.
+
+---
+
+## Estructura de Carpetas Generadas
+
+Al ejecutar el script se crean las siguientes carpetas dentro de `resultados/`:
+
+```
+resultados/
+├── logs/             # Logs por cada ejecucion
+├── reports/          # Reportes HTML generados por pytest
+├── metricas_*.json   # Metricas guardadas por ejecucion
+└── alerta_*.txt      # Alerta si falla la ejecucion
+```
+
+## Descripcion
+
+Este script en Python automatiza la ejecucion de pruebas unitarias utilizando `pytest` y proporciona una solucion centralizada para gestionar los resultados de las pruebas. Durante cada ejecucion, genera un log, un reporte HTML, un archivo con metricas detalladas en formato JSON y, en caso de error, una alerta de fallo. Ademas, permite consultar un historial de las ultimas ejecuciones para facilitar el seguimiento del estado del sistema o microservicio probado.
+
+El script esta disenado para funcionar tanto de forma local como en entornos de integracion continua (CI), siendo compatible con pipelines como GitHub Actions, GitLab CI, Jenkins, entre otros.
+
+## Objetivos
+
+- Automatizar la ejecucion de pruebas unitarias con `pytest`.
+- Generar reportes HTML visuales que documenten los resultados de cada ejecucion.
+- Guardar logs detallados de cada prueba en archivos separados.
+- Registrar metricas clave como duracion, exito o fallo, entorno de ejecucion y detalles del log.
+- Proveer alertas automaticas cuando las pruebas no pasen.
+- Mantener un historial de las ultimas ejecuciones para analisis posterior.
+- Facilitar la integracion en procesos CI/CD con informacion util para debugging y monitoreo.
+
+
+# video PC5
+
+ [video]( https://www.youtube.com/watch?v=OPgOIiTqpqc)
+ [video](https://youtu.be/4tgorFqHA3g)
