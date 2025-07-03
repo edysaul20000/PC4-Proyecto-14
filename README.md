@@ -571,3 +571,31 @@ Automatizar el flujo de pruebas en entornos controlados para:
 ### Nota:
 
 * Se ejecuto el pipeline de manera local usando `act` para validar su funcionamiento antes del push y al ejecutar `act pull_request` se comprobo que las imagenes Docker se construyen correctamente, los servicios se levantan sin errores y las pruebas se ejecutan generando el reporte HTML esperado.
+
+
+### 2. **Frank Hinojosa**: Test Data Management (TDM)
+
+## **Descripcion**
+En esta parte me centre en asegurar la fiabilidad de la comunicacion entre un microservicio y un mock, a traves de una sólida **Gestion de Datos de Prueba (TDM)**.
+
+1.  **`Datasets` para Simulación del Mock:**
+    * Se crearon y utilizaron archivos JSON (`success.json`, `error.json`, `latency.json`) ubicados en `mock/datasets/` para simular respuestas variadas del servicio mock.
+    * **Ajuste Crucial de Datos:** Se modifica la estructura de `success.json` para alinearla con el `contract_response_schema.json`, asegurando que propiedades clave como `status`, `message` esten presentes en el nivel raiz, resolviendo así errores de validación en las pruebas de contrato.
+
+2.  **Servicio Mock Mejorado:**
+    * El `mock_service` fue configurado para cargar dinamicamente estos `datasets` basado en variables de entorno (`MOCK_RESPONSE_TYPE`, `MOCK_DATA_FILE`) pasadas durante la ejecucion de las pruebas.
+    * Se corrige un error en su `Dockerfile` relacionado con la importacion del modulo de la aplicacion, lo que garantiza la correcta inicializacion del mock y su capacidad para servir los `datasets` de manera confiable.
+
+3.  **Contrato de Respuesta (JSON Schema):**
+    * El archivo `contract_response_schema.json` se utiliza para validar el formato de las respuestas del mock y de la sección `mock_response` del microservicio.
+
+4.  **Gestión del Entorno de Pruebas (`tear-down`):**
+    * Se implementa `test_env_builder.py` para automatizar el ciclo de vida de los entornos de prueba Docker (levantar y destruir).
+
+5.  **Suite de Pruebas Automatizadas (Pytest):**
+    * **`test_integration.py`:** Valida la interaccion completa entre el microservicio y el mock bajo diversos escenarios, utilizando la configuracion de `datasets`.
+    * **`test_contracts.py`:** Se enfoca en validar que los datos de respuesta (del mock y del microservicio) cumplen con el `contract_response_schema.json`, asegurando la adherencia a la interfaz definida.
+
+## Resultados:
+
+Gracias a estas implementaciones, **todos los tests de integracion y contrato pasan exitosamente**. Validando la funcionalidad del sistema y, crucialmente, la efectividad de nuestra estrategia de Test Data Management y la fiabilidad del ciclo de vida del entorno de pruebas.
